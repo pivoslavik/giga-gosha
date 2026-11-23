@@ -1,0 +1,16 @@
+name: TypeScript checks
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-24.04
+    container: node:24.22.3-bookworm-slim
+    steps:
+      - uses: actions/checkout@v6.0.2
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck

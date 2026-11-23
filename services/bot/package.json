@@ -1,0 +1,8 @@
+{
+  "name": "@giga-gosha/bot",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node src/main.ts"
+  }
+}
