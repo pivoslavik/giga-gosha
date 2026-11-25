@@ -1,11 +1,13 @@
-FROM node:24.22.3-bookworm-slim
+FROM python:3.12.16-slim-bookworm
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends curl=7.88.1-10+deb12u15 \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-COPY package.json package-lock.json ./
-COPY services/ml/package.json services/ml/
-RUN npm ci --workspace @giga-gosha/ml --omit=dev --no-audit --no-fund
-COPY packages/runtime packages/runtime
-COPY services/ml/src services/ml/src
+ENV PYTHONDONTWRITEBYTECODE=1
+COPY packages/runtime/ packages/runtime/
+COPY services/ml/ services/ml/
 
-USER node
-CMD ["node", "services/ml/src/main.ts"]
+USER 65532:65532
+CMD ["python", "-m", "services.ml"]
