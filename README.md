@@ -22,6 +22,5 @@ docker compose up -d --build --wait
 python3.12 -m venv .venv
 . .venv/bin/activate
 python -m pip install -r requirements.txt
-black --check packages services tests
-python -m unittest discover -s tests
+black --check packages services
 ```
